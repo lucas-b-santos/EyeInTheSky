@@ -1,0 +1,87 @@
+{% load static %}
+
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tela Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Gugi&display=swap');
+
+        .gugi-regular {
+            font-family: "Gugi", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+    </style>
+</head>
+
+<body class="bg-dark">
+
+    <div class="container mt-3">
+        <div class="d-flex justify-content-center gap-4">
+            <div class="h-auto"> <img src="logo.png" alt="" style="height: 80px; transform: scaleX(-1);">
+            </div>
+            <div class="h-auto d-flex align-items-center">
+                <h1 class="gugi-regular text-white pt-2"><strong>Eye in The Sky</strong></h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-2 d-flex flex-column justify-content-center align-items-center gap-4">
+        <div class="w-75 shadow-lg" style="border-radius: 10px; background-color: rgb(158, 181, 182);">
+            <h2 class="d-flex m-md-0 mt-2 justify-content-center"><strong>Fazer Login</strong></h1>
+
+                <div class="d-flex h-auto gap-3 w-75 flex-column align-items-center p-3 pt-0 w-100">
+
+                    <div class="row w-100 justify-content-center">
+                        <div class="col-md-10">
+                            <label for="exampleFormControlInput1" class="form-label">CPF/E-mail</label>
+                            <input type="email" class="form-control" id="exampleFormControlInput1">
+                        </div>
+
+                    </div>
+
+                    <div class="row w-100 justify-content-center">
+                        <div class="col-md-10">
+                            <label for="exampleFormControlInput1" class="form-label">Senha</label>
+                            <input type="password" class="form-control" id="exampleFormControlInput1">
+                            <a href="#" class="form-text" id="basic-addon4">Esqueceu sua senha?</a>
+                        </div>
+                    </div>
+
+
+                    <div class="row w-75 d-md-inline d-none">
+                        <div class="col d-flex justify-content-center">
+                            <button type="button" class="btn btn-lg btn-success bg-dark">Entrar</button>
+                        </div>
+                    </div>
+
+                    <div class="row w-75 d-md-none d-inline">
+                        <div class="col d-flex justify-content-center">
+                            <button type="button" class="btn btn-success bg-dark">Entrar</button>
+                        </div>
+                    </div>
+
+                    <div class="row w-75">
+                        <div class="col d-flex justify-content-center">
+                            <button type="button" class="btn btn-primary">Voltar</button>
+                        </div>
+
+                    </div>
+
+                </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
