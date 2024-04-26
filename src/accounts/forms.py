@@ -3,7 +3,6 @@ from .models import User
 
 from django.contrib.auth.forms import UserCreationForm
 
-
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField(label="Email:")
     cpf = forms.CharField(label="CPF:", max_length=14)
@@ -12,10 +11,16 @@ class UserRegisterForm(UserCreationForm):
         model = User
         fields = ["email", "cpf", "password1", "password2"]
         
-    def __init__(self, *args, **kwargs): # Adiciona 
+    def __init__(self, *args, **kwargs): 
         super().__init__(*args, **kwargs)  
         for field_name, field in self.fields.items():   
-              field.widget.attrs['class'] = 'form-control' 
+            field.widget.attrs['class'] = 'form-control' 
+            if field_name == "cpf":
+                field.widget.attrs['placeholder'] = '___.____.___-__' 
+            if 'password' in field_name:
+                field.widget.attrs['class'] += ' password-input' 
+
+
    
           
        
