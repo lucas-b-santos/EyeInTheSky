@@ -1,73 +1,39 @@
-{% load static %}
+{% extends 'accounts/base.html' %} 
 
-<!doctype html>
-
-<html lang="pt-br">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tela Inicial</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-
-     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Gugi&display=swap');
-
-        .gugi-regular {
-            font-family: "Gugi", sans-serif;
-            font-weight: 400;
-            font-style: normal;
-        }
-    </style>
-</head>
-
-<body class="bg-dark">
-    <div class="container mt-3">
-        <div class="d-flex justify-content-center gap-4">
-            <div class="h-auto"> <img src="{% static 'assets/logo.png' %}" alt=""
-                    style="height: 80px; transform: scaleX(-1);">
-            </div>
-            <div class="h-auto d-flex align-items-center">
-                <h1 class="gugi-regular text-white pt-2"><strong>Eye in The Sky</strong></h1>
-
-            </div>
-        </div>
-    </div>
-
+{% block page_title %}Tela Inicial{% endblock page_title %}
+    
+{% block body %}
     <div class="container-md container-fluid mt-2 d-flex flex-column justify-content-center align-items-center gap-4">
-        <div class="w-75 shadow-lg" style="border-radius: 10px; background-color: rgb(158, 181, 182);">
-            <h2 class="d-flex m-0 mt-2 justify-content-center"><strong>Tela Inicial</strong></h1>
-                {% if messages %}
-                    {% for message in messages %}
-                        {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
-                            <div class="alert alert-success" role="alert">
-                                {{ message }}
-                            </div>
-                        {% endif %}
-                    {% endfor %}
-                {% endif %}
+        <div class="w-75 text-white text-center" style="border-radius: 10px;">
+            <h2 class="d-flex m-0 mt-2 justify-content-center "><strong>Bem vindo</strong></h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe adipisci, excepturi vero voluptates at tempore rerum minima unde quasi sed.</p>
+            
+            {% if messages %}
+                {% for message in messages %}
+                    {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                        <div class="alert alert-success" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
         </div>
     </div>
+{% endblock body %}
+        
+{% block js %}
+    <script type="text/javascript">
+        $(document).ready(function () {
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
-</body>
+            window.setTimeout(function () {
+                $(".alert").fadeTo(1000, 0).slideUp(1000, function () {
+                    $(this).remove();
+                });
+            }, 5000);
 
-<script type="text/javascript">
+        });
+    </script>
+{% endblock js %}
+    
 
-    $(document).ready(function () {
 
-        window.setTimeout(function () {
-            $(".alert").fadeTo(1000, 0).slideUp(1000, function () {
-                $(this).remove();
-            });
-        }, 5000);
-
-    });
-</script>
-
-</html>

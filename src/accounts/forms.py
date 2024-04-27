@@ -7,6 +7,12 @@ class UserRegisterForm(UserCreationForm):
     email = forms.EmailField(label="Email:")
     cpf = forms.CharField(label="CPF:", max_length=14)
 
+    password2 = forms.CharField(
+        label="Confirme a Senha:",
+        widget=forms.PasswordInput(attrs={"autocomplete": "new-password"}),
+        strip=False,
+    )
+
     class Meta:
         model = User
         fields = ["email", "cpf", "password1", "password2"]

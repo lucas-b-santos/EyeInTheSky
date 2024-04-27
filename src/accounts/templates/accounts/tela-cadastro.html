@@ -1,49 +1,20 @@
-{% load static %}
+{% extends 'accounts/base.html' %}
 
-<!doctype html>
-
-<html lang="pt-br">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tela Cadastro</title>
-
+{% block page_title %}Cadastrar-se{% endblock page_title %}
+    
+{% block css %}
     <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Gugi&display=swap');
-    
-        .gugi-regular {
-            font-family: "Gugi", sans-serif;
-            font-weight: 400;
-            font-style: normal;
-        }
-    
         .lnr-eye {
             position: absolute;
             top: 35px;
-            right: 15px;
+            right: 18px;
             cursor: pointer;
         }
     </style>
-</head>
-
-<body class="bg-dark">
-
-    <div class="container mt-3">
-        <div class="d-flex justify-content-center gap-4">
-            <div class="h-auto"> <img src="{% static 'assets/logo.png' %}" alt=""
-                    style="height: 80px; transform: scaleX(-1);">
-            </div>
-            <div class="h-auto d-flex align-items-center">
-                <h1 class="gugi-regular text-white pt-2"><strong>Eye in The Sky</strong></h1>
-            </div>
-        </div>
-    </div>
-
+{% endblock css %}
+    
+{% block body %}
     <div class="container-md container-fluid mt-2 d-flex flex-column justify-content-center align-items-center gap-4">
         <div class="w-75 shadow-lg" style="border-radius: 10px; background-color: rgb(158, 181, 182);">
             <h2 class="d-flex m-0 mt-2 justify-content-center"><strong>Cadastre-se</strong></h1>
@@ -52,7 +23,7 @@
 
                     <div class="d-flex h-auto gap-3 w-75 flex-column align-items-center p-3 pt-0 w-100">
                         {% for field in form %}
-                            <div class="row w-100 justify-content-center">                                
+                            <div class="row w-100 justify-content-center">                        
                                 <div class="col-md-10 position-relative">
                                     {{field.label_tag}}
 
@@ -71,7 +42,7 @@
                                             </p>
                                         {% endif %}
                                     {% endif %}
-                                </div>
+                                </div>                        
                             </div>
                         {% endfor %}
 
@@ -98,22 +69,25 @@
                 </form>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
-
+{% endblock body %}
+    
+{% block js %}
     <script>
         let btn = document.querySelector('.lnr-eye');
         btn.addEventListener('click', function () {
-            let input = document.querySelector('#password');
+            let input = document.querySelectorAll('.password-input');
             if (input.getAttribute('type') == 'password') {
                 input.setAttribute('type', 'text');
             } else {
                 input.setAttribute('type', 'password');
             }
         });
-    </script>
-</body>
+    </script>    
+{% endblock js %}
+    
 
-</html>
+
+
+
+
+
