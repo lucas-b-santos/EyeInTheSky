@@ -1,14 +1,23 @@
 {% extends 'accounts/base.html' %}
 
+{% load static %}
+
 {% block page_title %}Cadastrar-se{% endblock page_title %}
     
-{% block css %}
-    <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+{% block css %}    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"> 
+    
     <style>
-        .lnr-eye {
+        .fa-eye {
             position: absolute;
             top: 35px;
-            right: 18px;
+            right: 21px;
+            cursor: pointer;
+        }
+        .fa-eye-slash {
+            position: absolute;
+            top: 35px;
+            right: 20px;
             cursor: pointer;
         }
     </style>
@@ -18,6 +27,16 @@
     <div class="container-md container-fluid mt-2 d-flex flex-column justify-content-center align-items-center gap-4">
         <div class="w-75 shadow-lg" style="border-radius: 10px; background-color: rgb(158, 181, 182);">
             <h2 class="d-flex m-0 mt-2 justify-content-center"><strong>Cadastre-se</strong></h1>
+                {% if messages %}
+                    {% for message in messages %}
+                        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                            <div class="alert alert-danger" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                
                 <form method="post">
                     {% csrf_token %}
 
@@ -30,7 +49,7 @@
                                     {{ field }}
 
                                     {% if "password" in field.html_name %}
-                                        <span class="lnr lnr-eye"></span>
+                                        <i class="fa-solid fa-eye"></i>
                                     {% endif %}
 
                                     {% if field.errors %}
@@ -60,7 +79,7 @@
 
                         <div class="row w-75">
                             <div class="col d-flex justify-content-center">
-                                <a type="button" class="btn btn-primary" href="{% url 'accounts_home' %}">Voltar</a>
+                                <a type="button" class="btn btn-primary" href="{% url 'home' %}">Voltar</a>
                             </div>
                         </div>
 
@@ -72,17 +91,7 @@
 {% endblock body %}
     
 {% block js %}
-    <script>
-        let btn = document.querySelector('.lnr-eye');
-        btn.addEventListener('click', function () {
-            let input = document.querySelectorAll('.password-input');
-            if (input.getAttribute('type') == 'password') {
-                input.setAttribute('type', 'text');
-            } else {
-                input.setAttribute('type', 'password');
-            }
-        });
-    </script>    
+    <script src="{% static 'js/cadastro.js' %}"></script>
 {% endblock js %}
     
 

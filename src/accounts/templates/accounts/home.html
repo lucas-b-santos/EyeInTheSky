@@ -5,9 +5,11 @@
 {% block body %}
     <div class="container-md container-fluid mt-2 d-flex flex-column justify-content-center align-items-center gap-4">
         <div class="w-75 text-white text-center" style="border-radius: 10px;">
-            <h2 class="d-flex m-0 mt-2 justify-content-center "><strong>Bem vindo</strong></h1>
+            <h2 class="mt-2">
+                Bem vindo, <strong>{{ user }}</strong>
+            </h2>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe adipisci, excepturi vero voluptates at tempore rerum minima unde quasi sed.</p>
-            
+           
             {% if messages %}
                 {% for message in messages %}
                     {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
@@ -17,6 +19,45 @@
                     {% endif %}
                 {% endfor %}
             {% endif %}
+
+            {% if request.user.is_authenticated %}
+                <div class="row w-75 d-md-inline d-none">
+                    <div class="col d-flex justify-content-center">
+                        <a href="{% url 'logout' %}" class="btn btn-lg btn-secondary">Logout</a>
+                    </div>
+                </div>
+
+                <div class="row w-75 d-md-none d-inline">
+                    <div class="col d-flex justify-content-center">
+                        <a href="{% url 'logout' %}" class="btn btn-secondary">Logout</a>
+                    </div>
+                </div>
+            {% else %}
+                <div class="row w-75 d-md-inline d-none">
+                    <div class="col d-flex justify-content-center">
+                        <a href="{% url 'register' %}" class="btn btn-lg btn-light">Cadastrar-se</a>
+                    </div>
+                </div>
+
+                <div class="row w-75 d-md-none d-inline">
+                    <div class="col d-flex justify-content-center">
+                        <a href="{% url 'register' %}" class="btn btn-light">Cadastrar-se</a>
+                    </div>
+                </div>
+
+                <div class="row w-75 d-md-inline d-none">
+                    <div class="col d-flex justify-content-center">
+                        <a href="{% url 'login' %}" class="btn btn-lg btn-secondary">Entrar</a>
+                    </div>
+                </div>
+
+                <div class="row w-75 d-md-none d-inline">
+                    <div class="col d-flex justify-content-center">
+                        <a href="{% url 'login' %}" class="btn btn-secondary">Entrar</a>
+                    </div>
+                </div>
+            {% endif %}
+
         </div>
     </div>
 {% endblock body %}

@@ -4,7 +4,6 @@ from django.contrib.auth.models import PermissionsMixin
 
 from .managers import UserManager
 
-
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     cpf = models.CharField(max_length=14, unique=True)

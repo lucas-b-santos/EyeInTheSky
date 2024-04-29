@@ -1,7 +1,10 @@
 from  django import forms
 from .models import User
 
+from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm, UsernameField
+from django.utils.translation import gettext_lazy as _
 
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField(label="Email:")
@@ -27,6 +30,22 @@ class UserRegisterForm(UserCreationForm):
                 field.widget.attrs['class'] += ' password-input' 
 
 
-   
+    
+
+    
+
+class LoginForm(AuthenticationForm):
+    username = UsernameField(widget=forms.TextInput(attrs={"autofocus": True}))
+
+    password = forms.CharField(
+        label=_("Password"),
+        strip=False,
+        widget=forms.PasswordInput(attrs={"autocomplete": "current-password"}),
+    )
+
+    def __init__(self, *args, **kwargs): 
+        super().__init__(*args, **kwargs)  
+        for field_name, field in self.fields.items():   
+            field.widget.attrs['class'] = 'form-control' 
           
        
