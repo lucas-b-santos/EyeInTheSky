@@ -8,46 +8,114 @@
     <div class="container-md container-fluid mt-2 d-flex flex-column justify-content-center align-items-center gap-4">
         <div class="w-75 shadow-lg" style="border-radius: 10px; background-color: rgb(158, 181, 182);">
             <h2 class="d-flex m-0 mt-2 justify-content-center"><strong>Fazer Login</strong></h1>
-                <form method="post">
+                {% if messages %}
+                    {% for message in messages %}
+                        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                            <div class="alert alert-danger" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+
+                <form method="post" novalidate>
                     {% csrf_token %}
 
                     <div class="d-flex h-auto gap-3 w-75 flex-column align-items-center p-3 pt-0 w-100">
                         {% for field in form %}
-                            <div class="row w-100 justify-content-center">                        
-                                <div class="col-md-10 position-relative">
+                            {% if "username" == field.html_name %}
+                            <div class="row w-100 justify-content-center d-none" id="cpf_container">
+                                <div class="col-md-10 position-relative form-group">
+                                    <label for="id_cpf">CPF:</label>
+                            
+                                    <input type="text" name="cpf" maxlength="14" class="form-control" required="" id="id_cpf">
+                                    <div class="valid-feedback">
+                                        OK!
+                                    </div>
+                            
+                                    <div class="invalid-feedback" id="invalid-feedback-cpf">
+                            
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+
+                            <div class="row w-100 justify-content-center" id="{{ field.html_name }}_container">                        
+                                <div class="col-md-10 position-relative form-group">
                                     {{field.label_tag}}
 
-                                    {{ field }}
-
                                     {% if "password" in field.html_name %}
-                                        <i class="fa-solid fa-eye"></i>
+                                    <div class="d-flex gap-3">
+                                        <div style="width: 97%;"> 
+                                            {{ field }}
+                                            <div class="valid-feedback">
+                                                OK!
+                                            </div>
+                    
+                                            <div class="invalid-feedback" id="invalid-feedback-{{ field.html_name }}">
+                                                
+                                            </div>
+                                        </div>
+                                        <div style="width: 3%; margin-right: 1px; padding-top: 6px;">
+                                            <i class="fa-solid fa-eye" id="password-eye"></i>
+                                        </div>
+                                    </div>
+
+            
+                                    {% else %}
+                                        {{ field }}
+                                        <div class="valid-feedback">
+                                            OK!
+                                        </div>
+                
+                                        <div class="invalid-feedback" id="invalid-feedback-{{ field.html_name }}">
+                                            
+                                        </div>
                                     {% endif %}
 
                                     {% if field.errors %}
-                                        {{field.errors}}
-                                    {% else %}
+                                            {{field.errors}}
+                                    {% endif %}
+
+                                    {% if not field.errors %}
                                         {% if field.help_text %}
                                             <p class="help" id="{{ field.auto_id }}_helptext">
                                                 {{ field.help_text|safe }}
                                             </p>
                                         {% endif %}
                                     {% endif %}
+
+                                    
+
                                 </div>                        
                             </div>
                         {% endfor %}
+
+                        
+
+                        <div class="form-group">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" name="login_option" type="radio" id="emailCheck" value="email" checked>
+                                <label class="form-check-label" for="inlineCheckbox1">Email</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" name="login_option" type="radio" id="cpfCheck" value="cpf">
+                                <label class="form-check-label" for="inlineCheckbox2">CPF</label>
+                            </div>
+                        </div>
 
                         <div class="row w-75 d-md-inline d-none">
                             <div class="col d-flex justify-content-center">
                                 <input type="submit" class="btn btn-lg btn-success bg-dark" value="Entrar">
                             </div>
                         </div>
-
+                        
                         <div class="row w-75 d-md-none d-inline">
                             <div class="col d-flex justify-content-center">
                                 <input type="submit" class="btn btn-success bg-dark" value="Entrar">
                             </div>
                         </div>
-
+                        
                         <div class="row w-75">
                             <div class="col d-flex justify-content-center">
                                 <a type="button" class="btn btn-primary" href="{% url 'home' %}">Voltar</a>
@@ -62,6 +130,7 @@
 {% endblock body %}
 
 {% block js %}
+    <script src="{% static 'js/jquery.mask.min.js' %}"></script>
     <script src="{% static 'js/login.js' %}"></script>
 {% endblock js %}
     

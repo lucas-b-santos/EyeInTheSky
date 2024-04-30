@@ -5,9 +5,17 @@
 {% block body %}
     <div class="container-md container-fluid mt-2 d-flex flex-column justify-content-center align-items-center gap-4">
         <div class="w-75 text-white text-center" style="border-radius: 10px;">
-            <h2 class="mt-2">
-                Bem vindo, <strong>{{ user }}</strong>
-            </h2>
+        
+            {% if request.user.is_authenticated %}
+                <h2 class="mt-2">
+                    Bem vindo, <strong>{{ user }}</strong>
+                </h2>
+            {% else %}
+                <h2 class="mt-2">
+                    Bem vindo! Faça login para continuar.
+                </h2>
+            {% endif %}
+                
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe adipisci, excepturi vero voluptates at tempore rerum minima unde quasi sed.</p>
            
             {% if messages %}

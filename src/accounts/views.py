@@ -2,10 +2,19 @@ from django.shortcuts import render, redirect
 from .forms import UserRegisterForm, LoginForm
 from django.contrib import messages
 from django.contrib import auth
+from .models import User
 
 def register(request):
     if request.method == "POST":
-        form = UserRegisterForm(request.POST) or None
+        form = UserRegisterForm(request.POST)
+
+        cpf = request.POST.get('cpf')
+        email = request.POST.get('email')
+
+        if User.objects.filter(cpf=cpf).exists() or User.objects.filter(email=email).exists():
+            messages.error(request, "Informações já cadastradas. Por favor, faça login.")
+
+            return redirect("login")
 
         if form.is_valid():
             form.save()
@@ -14,25 +23,18 @@ def register(request):
 
             return redirect("home")
 
-        data = {}
-
-        for field in form.fields:
-            if form.has_error(field):
-                data[field] = None
-            else:
-                data[field] = form.cleaned_data[field]
-
-        form.data = data
-        context = {"form": form}
-        return render(request, "accounts/tela-cadastro.html", context)
-
-    else:
-        if request.user.is_authenticated:
-            return redirect("home")
-        form = UserRegisterForm()
         context = {"form": form}
 
         return render(request, "accounts/tela-cadastro.html", context)
+
+    if request.user.is_authenticated:
+        return redirect("home")
+    
+    form = UserRegisterForm()
+
+    context = {"form": form}
+
+    return render(request, "accounts/tela-cadastro.html", context)
 
 def signIn(request):
     if request.method == "POST":
@@ -47,7 +49,10 @@ def signIn(request):
         else:
             messages.error(request, "Usuário não existe. Favor crie uma conta.")
             return redirect("register")
-
+        
+    if request.user.is_authenticated:
+        return redirect("home")
+    
     form = LoginForm()
 
     context = {"form": form}
