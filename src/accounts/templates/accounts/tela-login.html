@@ -7,11 +7,11 @@
 {% block body %}
     <div class="container-md container-fluid mt-2 d-flex flex-column justify-content-center align-items-center gap-4">
         <div class="w-75 shadow-lg" style="border-radius: 10px; background-color: rgb(158, 181, 182);">
-            <h2 class="d-flex m-0 mt-2 justify-content-center"><strong>Fazer Login</strong></h1>
+            <h2 class="d-flex m-0 mt-2 mb-2 justify-content-center"><strong>Fazer Login</strong></h1>
                 {% if messages %}
                     {% for message in messages %}
                         {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
-                            <div class="alert alert-danger" role="alert">
+                            <div class="alert alert-danger text-center" role="alert">
                                 {{ message }}
                             </div>
                         {% endif %}
@@ -28,13 +28,10 @@
                                 <div class="col-md-10 position-relative form-group">
                                     <label for="id_cpf">CPF:</label>
                             
-                                    <input type="text" name="cpf" maxlength="14" class="form-control" required="" id="id_cpf">
-                                    <div class="valid-feedback">
-                                        OK!
-                                    </div>
-                            
+                                    <input placeholder="___.____.___-__" type="text" name="cpf" maxlength="14" class="form-control" required="" id="id_cpf">
+                                
                                     <div class="invalid-feedback" id="invalid-feedback-cpf">
-                            
+                                        Preencha este campo.
                                     </div>
                                 </div>
                             </div>
@@ -45,31 +42,23 @@
                                     {{field.label_tag}}
 
                                     {% if "password" in field.html_name %}
-                                    <div class="d-flex gap-3">
-                                        <div style="width: 97%;"> 
-                                            {{ field }}
-                                            <div class="valid-feedback">
-                                                OK!
+                                        <div class="d-flex gap-3">
+                                            <div style="width: 97%;"> 
+                                                {{ field }}
+                                                <div class="invalid-feedback" id="invalid-feedback-{{ field.html_name }}">
+                                                    Preencha este campo.
+                                                </div>
                                             </div>
-                    
-                                            <div class="invalid-feedback" id="invalid-feedback-{{ field.html_name }}">
-                                                
+                                            <div style="width: 3%; margin-right: 1px; padding-top: 6px;">
+                                                <i class="fa-solid fa-eye" id="password-eye"></i>
                                             </div>
                                         </div>
-                                        <div style="width: 3%; margin-right: 1px; padding-top: 6px;">
-                                            <i class="fa-solid fa-eye" id="password-eye"></i>
-                                        </div>
-                                    </div>
 
-            
                                     {% else %}
                                         {{ field }}
-                                        <div class="valid-feedback">
-                                            OK!
-                                        </div>
-                
+                                      
                                         <div class="invalid-feedback" id="invalid-feedback-{{ field.html_name }}">
-                                            
+                                            Preencha este campo.
                                         </div>
                                     {% endif %}
 
@@ -85,13 +74,9 @@
                                         {% endif %}
                                     {% endif %}
 
-                                    
-
                                 </div>                        
                             </div>
                         {% endfor %}
-
-                        
 
                         <div class="form-group">
                             <div class="form-check form-check-inline">

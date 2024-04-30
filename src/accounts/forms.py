@@ -8,7 +8,7 @@ from django.contrib.auth.forms import AuthenticationForm, UsernameField
 from django.utils.translation import gettext_lazy as _
 from validate_docbr import CPF
 
-validator = CPF()
+CPF_VALIDATOR = CPF()
 
 class UserRegisterForm(UserCreationForm, forms.ModelForm):
 
@@ -38,10 +38,10 @@ class UserRegisterForm(UserCreationForm, forms.ModelForm):
     def clean_cpf(self):
         data = self.cleaned_data.get("cpf")
 
-        if validator.validate(data):
+        if CPF_VALIDATOR.validate(data):
             return data
         else:
-            raise ValidationError(_("CPF Inválido"))
+            raise ValidationError(_("Informe um CPF válido."))
 
 class LoginForm(AuthenticationForm):
     username = UsernameField(widget=forms.TextInput(attrs={"autofocus": True}))

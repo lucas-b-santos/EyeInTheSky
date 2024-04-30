@@ -31,6 +31,9 @@ $(function () {
     const form = document.querySelector('form');
 
     form.addEventListener('submit', function (event) {
+
+        $(".errorlist").html("");
+
         let formValido = true;
 
         for (let i = 0; i < form.length; i++) {//retira todas as mensagens de feedback do form
@@ -40,7 +43,6 @@ $(function () {
 
         for (let i = 0; i < form.length; i++) {
             if (!form[i].value && form[i].tagName == "INPUT") {//verifica campo vazio
-                $("#invalid-feedback-" + form[i].getAttribute("id").slice(3)).html("Preencha este campo.");
                 form[i].classList.add('is-invalid');
                 formValido = false;
             } 
@@ -53,7 +55,6 @@ $(function () {
             event.stopPropagation();
         }
     });
-
 
 });
 

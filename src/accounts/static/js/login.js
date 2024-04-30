@@ -22,10 +22,27 @@ $(function () {
     // Validação de campos client-side
     const form = document.querySelector('form');
 
-    $("input[name='login_option']").on('input', function() {
+    let login_option;
+
+    $("input[name='login_option']").on('input', function () {
+
+        for (let i = 0; i < form.length; i++) {
+            form[i].classList.remove("is-invalid");
+            form[i].classList.remove("is-valid");
+        }
+
+        login_option = $(this).attr('value');
+
         $("#cpf_container").toggleClass("d-none");
         $("#username_container").toggleClass("d-none");
     });
+
+    window.addEventListener("load", function (event) {
+        if ($("#username_container").hasClass("d-none")) {
+            $("#cpf_container").toggleClass("d-none");
+            $("#username_container").toggleClass("d-none");
+        } 
+      });
 
     form.addEventListener('submit', function (event) {
         let formValido = true;
@@ -36,12 +53,23 @@ $(function () {
         }
 
         for (let i = 0; i < form.length; i++) {
+
             if (!form[i].value && form[i].tagName == "INPUT") {//verifica campo vazio
-                $("#invalid-feedback-" + form[i].getAttribute("id").slice(3)).html("Preencha este campo.");
-                form[i].classList.add('is-invalid');
-                formValido = false;
+                
+                let id = $(form[i]).attr("id");
+
+                if (id != 'id_password' && id.includes(login_option)) {
+                    form[i].classList.add('is-invalid');
+                    formValido = false;
+                }
+
+                else if (id == 'id_password') {
+                    form[i].classList.add('is-invalid');
+                    formValido = false;
+                }
             }
         }
+        
         if (formValido) {
             form.submit();
             return;
