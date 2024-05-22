@@ -1,4 +1,3 @@
-from typing import Any
 from django import forms
 from .models import User
 
@@ -39,6 +38,7 @@ class UserRegisterForm(UserCreationForm, forms.ModelForm):
         data = self.cleaned_data.get("cpf")
 
         if CPF_VALIDATOR.validate(data):
+            
             return data
         else:
             raise ValidationError(_("Informe um CPF válido."))
