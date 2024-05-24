@@ -40,8 +40,8 @@ def register(request):
 
 def signIn(request):
     if request.method == "POST":  
-        controller = AuthController(request.POST)
-        
+        controller = AuthController(data=request.POST)
+                
         if controller.login_option == 'email':
             if not controller.valid_email:
                 messages.error(request, "Email inválido.")

@@ -54,7 +54,7 @@ $(function () {
 
         for (let i = 0; i < form.length; i++) {
 
-            if (!form[i].value && form[i].tagName == "INPUT") {//verifica campo vazio
+            if (!form[i].value && form[i].tagName == "INPUT" && $(form[i]).attr("type") != 'hidden') {//verifica campo vazio
                 
                 let id = $(form[i]).attr("id");
 

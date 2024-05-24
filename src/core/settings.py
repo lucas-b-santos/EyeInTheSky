@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
+    'widget_tweaks',
     'accounts',
     'system_occurrences',
 ]
@@ -45,6 +47,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "django_session_timeout.middleware.SessionTimeoutMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -115,10 +118,10 @@ USE_TZ = True
 ROOT_URLCONF = "core.urls"
 
 # timeout tempo de inatividate no sistema
-SESSION_EXPIRE_SECONDS = 300 
+SESSION_EXPIRE_SECONDS = 300
 SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
-#SESSION_EXPIRE_AFTER_LAST_ACTIVITY_GRACE_PERIOD = 60  
-SESSION_TIMEOUT_REDIRECT = '/'
+# SESSION_EXPIRE_AFTER_LAST_ACTIVITY_GRACE_PERIOD = 60
+SESSION_TIMEOUT_REDIRECT = 'login'
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = '/'
@@ -131,15 +134,15 @@ LANGUAGE_CODE = 'pt-br'
 TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
-USE_L10N = True #?
+USE_L10N = True  # ?
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "/static/"
-STATIC_DIR=os.path.join(BASE_DIR,'static')
-STATICFILES_DIRS = [ 
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
     os.path.join(BASE_DIR, 'accounts/static'),
 ]

@@ -21,6 +21,10 @@
                 <form method="post" novalidate>
                     {% csrf_token %}
 
+                    <!-- Para redirecionar para a página que o usuário queria acessar, 
+                                precisa desse input type hidden -->
+                    <input type="hidden" name="next" value="{{ request.GET.next }}" />
+
                     <div class="d-flex h-auto gap-3 w-75 flex-column align-items-center p-3 pt-0 w-100">
                         {% for field in form %}
                             {% if "username" == field.html_name %}

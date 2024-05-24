@@ -32,7 +32,7 @@ class RegisterController(UserRegisterForm):
 
     @property
     def user_exists(self) -> bool:
-        if User.objects.filter(cpf=self._email).exists() or User.objects.filter(email=self._cpf).exists():
+        if User.objects.filter(cpf=self._cpf).exists() or User.objects.filter(email=self._email).exists():
             return True
         
         return False
@@ -70,7 +70,6 @@ class AuthController(LoginForm):
             else:
                 self._username = User.objects.get(email=self._email).email
                         
-            
             return True
 
         except:
