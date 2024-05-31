@@ -36,12 +36,6 @@
                                 <li class="nav-item">
                                     <a class="nav-link active text-center" aria-current="page" href="#">Voltar para Tela Inicial</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link active text-center" aria-current="page" href="#">Opção A</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link active text-center" aria-current="page" href="#">Opção B</a>
-                                </li>
                             </ul>
            
                         </div>
@@ -57,24 +51,9 @@
 
                 <div style="height: 10%"
                     class="d-md-flex d-none justify-content-center align-items-center border-bottom border-white w-100">
-                    <span class="text-white text-center">Voltar à tela inicial</span>
+                    <a href="home" class="text-white text-center">Voltar à tela inicial</a>
                 </div>
-                <div style="height: 10%"
-                    class="d-md-flex d-none justify-content-center align-items-center border-bottom border-white w-100">
-                    <span class="text-white">Opção</span>
-                </div>
-                <div style="height: 10%"
-                    class="d-md-flex d-none justify-content-center align-items-center border-bottom border-white w-100">
-                    <span class="text-white">Opção</span>
-                </div>
-                <div style="height: 10%"
-                    class="d-md-flex d-none justify-content-center align-items-center border-bottom border-white w-100">
-                    <span class="text-white">Opção</span>
-                </div>
-                <div style="height: 10%"
-                    class="d-md-flex d-none justify-content-center align-items-center border-bottom border-white w-100">
-                    <span class="text-white">Opção</span>
-                </div>
+        
 
             </div>
 
@@ -82,7 +61,6 @@
             </div>
         </div>
 
-        <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -102,50 +80,7 @@
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
 
-    <script>
-
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                const latitude = position.coords.latitude;
-                const longitude = position.coords.longitude;
-                console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
-            });
-        } else {
-            console.log("Geolocation is not supported by this browser.");
-        }
-
-        var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {
-            keyboard: false
-        })
-
-        myModal.show();
-
-        const map = L.map('map').setView([-24.952289, -53.466682], 13);
-
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map);
-
-        var marker = null;
-
-        function onMapClick(e) {
-            if (marker) 
-                map.removeLayer(marker);
-
-
-            marker = L.marker(e.latlng);
-
-            marker.addTo(map).bindPopup('VAI PERDOANDO TA');
-
-            map.flyTo(e.latlng, 15);
-
-        }
-
-        map.on('click', onMapClick);
-
-
-    </script>
+    <script href="{% static 'js/enviar_ocorrencia.js' %}"></script>
 </body>
 
 </html>

@@ -6,7 +6,6 @@ from datetime import datetime
 import json
 from core.settings import TIME_ZONE
 
-
 class EnvioForm(forms.ModelForm):
     class Meta:
         model = Ocorrencia

@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
-    'widget_tweaks',
     'accounts',
     'system_occurrences',
 ]
@@ -118,7 +117,7 @@ USE_TZ = True
 ROOT_URLCONF = "core.urls"
 
 # timeout tempo de inatividate no sistema
-SESSION_EXPIRE_SECONDS = 300
+SESSION_EXPIRE_SECONDS = 3600
 SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
 # SESSION_EXPIRE_AFTER_LAST_ACTIVITY_GRACE_PERIOD = 60
 SESSION_TIMEOUT_REDIRECT = 'login'
@@ -145,6 +144,7 @@ STATIC_DIR = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
     os.path.join(BASE_DIR, 'accounts/static'),
+    os.path.join(BASE_DIR, 'system_occurrences/static'),
 ]
 
 MEDIA_ROOT=os.path.join(BASE_DIR,'media')
