@@ -21,4 +21,4 @@ class Ocorrencia(models.Model):
     
     descricao = models.TextField(verbose_name="Descrição do Crime:")
 
-    img = models.FileField(upload_to="uploads/", null=True, verbose_name='Imagem (opcional):')
+    img = models.FileField(upload_to="uploads/", null=True, blank=True, verbose_name='Imagem (opcional):')
