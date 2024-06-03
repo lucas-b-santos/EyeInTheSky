@@ -1,4 +1,5 @@
 $(function () {
+  $(".errorlist").addClass("text-danger");
 
   let getLocation = new Promise((resolve, reject) => {
     if (navigator.geolocation) {

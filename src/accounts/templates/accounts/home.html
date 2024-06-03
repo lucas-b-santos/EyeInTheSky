@@ -16,7 +16,11 @@
                 </h2>
             {% endif %}
                 
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe adipisci, excepturi vero voluptates at tempore rerum minima unde quasi sed.</p>
+            <p>
+                Este site permite o envio de ocorrências de crimes para registro dessas informações em uma base de dados.
+                Estas informações são públicas e podem ser acessadas por qualquer pessoa.
+                Caso deseje, você pode enviar uma ocorrência de crime de maneira anônima, sem comprometer seus dados.
+            </p>
            
             {% if messages %}
                 {% for message in messages %}
@@ -31,15 +35,29 @@
             {% if request.user.is_authenticated %}
                 <div class="row w-75 d-md-inline d-none">
                     <div class="col d-flex justify-content-center">
+                        <a href="{% url 'enviar_ocorrencia' %}" class="btn btn-lg btn-light">Enviar Ocorrência</a>
+                    </div>
+                </div>
+                
+                <div class="row w-75 d-md-none d-inline">
+                    <div class="col d-flex justify-content-center">
+                        <a href="{% url 'enviar_ocorrencia' %}" class="btn btn-light">Enviar Ocorrência</a>
+                    </div>
+                </div>
+                
+                
+                <div class="row w-75 d-md-inline d-none">
+                    <div class="col d-flex justify-content-center">
                         <a href="{% url 'logout' %}" class="btn btn-lg btn-secondary">Logout</a>
                     </div>
                 </div>
-
+                
                 <div class="row w-75 d-md-none d-inline">
                     <div class="col d-flex justify-content-center">
                         <a href="{% url 'logout' %}" class="btn btn-secondary">Logout</a>
                     </div>
                 </div>
+                
             {% else %}
                 <div class="row w-75 d-md-inline d-none">
                     <div class="col d-flex justify-content-center">

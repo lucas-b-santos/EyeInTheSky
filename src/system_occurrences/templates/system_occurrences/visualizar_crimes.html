@@ -1,0 +1,117 @@
+{% load static %}
+
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Visualização</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.js"
+        integrity="sha256-UgvvN8vBkgO0luPSUl2s8TIlOSYRoGFAX4jlCIm9Adc=" crossorigin="anonymous"></script>
+</head>
+
+<body class="bg-dark">
+    <input type="hidden" id="invalidForm" value="{{ invalidForm }}">
+
+    <div class="container-fluid vh-100">
+        <div class="row">
+            <div class="col-md-2 col-0 m-0 border border-white p-0">
+                <nav class="navbar navbar-expand-xxl navbar-dark bg-dark d-md-none" aria-label="Seventh navbar example">
+                    <div class="container-fluid">
+
+                        <a class="navbar-brand" href="#"><img src="{% static 'assets/logo.png' %}" alt=""
+                                style="height: 80px; transform: scaleX(-1);"></a>
+                        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarsExampleXxl" aria-controls="navbarsExampleXxl" aria-expanded="false"
+                            aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="navbar-collapse collapse" id="navbarsExampleXxl">
+                            <ul class="navbar-nav me-auto mb-2 mb-xl-0">
+                                <li class="nav-item">
+                                    <a href="{% url 'home' %}" class="nav-link active text-center" aria-current="page"
+                                        href="#">Voltar para Tela Inicial</a>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </nav>
+
+
+                <div class="d-md-grid d-none mt-2 border-bottom border-white w-100">
+                    <div class="h-auto" style="justify-self: center;"> <img src="{% static 'assets/logo.png' %}" alt=""
+                            style="height: 80px; transform: scaleX(-1);">
+                    </div>
+                </div>
+
+                <div style="height: 10%"
+                    class="d-md-flex d-none justify-content-center align-items-center border-bottom border-white w-100">
+                    <a href="{% url 'home' %}" class="text-white text-center">Voltar à tela inicial</a>
+                </div>
+
+
+            </div>
+
+            <div id="map" class="col-md-10 col-12 m-0" style="height: 100vh;">
+
+            </div>
+        </div>
+    </div>
+
+    {% for ocorrencia in ocorrencias %}
+    {{ ocorrencia|json_script:"ocorrencia" }}
+    {% endfor %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+    <script>
+        const map = L.map("map").setView([-24.952289, -53.466682], 18);
+
+        L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            maxZoom: 19,
+            attribution:
+                '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        }).addTo(map);
+
+        const ocorrencias = document.querySelectorAll("#ocorrencia")
+
+        for (i in ocorrencias) {
+
+            ocorrencia = JSON.parse(ocorrencias[i].textContent);
+
+            data = ocorrencia['data_hora'].split('T')[0].split('-')
+            hora = ocorrencia['data_hora'].split('T')[1].split("-")[0]
+
+            aux = data[2];
+            data[2] = data[0];
+            data[0] = aux;
+
+            data = data.join('/');
+            
+            L.marker(ocorrencia['localizacao'])
+                .addTo(map)
+                .bindPopup(`<div class="d-flex flex-column align-items-center gap-1">  
+                                <div>${ocorrencia['tipo']}</div> 
+                                <div>${data}</div>  
+                                <div>${hora}</div>  
+                            </div>`);
+        }
+
+    </script>
+
+</body>
+
+</html>

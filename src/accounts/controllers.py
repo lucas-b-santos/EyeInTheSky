@@ -5,6 +5,8 @@ from django.contrib import auth
 from django.core.validators import EmailValidator
 
 class CustomEmailValidator(EmailValidator):
+    '''Validação de Email'''
+    
     def __call__(self, value: str) -> bool:
 
         if not value or "@" not in value or len(value) > 320:
@@ -23,19 +25,25 @@ class CustomEmailValidator(EmailValidator):
 email_validator = CustomEmailValidator()
 
 class RegisterController(UserRegisterForm):
+    '''Controlador do Registro de Usuário'''
+    
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
         self._email = self.data.get('email')
         self._cpf = self.data.get('cpf')
         
-
     @property
     def user_exists(self) -> bool:
+        '''Aponta se usuário já existe no sistema'''
         if User.objects.filter(cpf=self._cpf).exists() or User.objects.filter(email=self._email).exists():
             return True
         
         return False
+    
+    def createUser(self):
+        '''Cria novo usuário'''
+        self.save()
 
 class AuthController(LoginForm):
     def __init__(self, *args, **kwargs):
@@ -49,14 +57,17 @@ class AuthController(LoginForm):
         
     @property
     def login_option(self) -> str:
+        '''Opção de login'''
         return self._login_option
     
     @property
     def valid_email(self) -> bool:
+        '''Aponta se o email é válido'''
         return email_validator(self._email)
             
     @property
     def valid_cpf(self) -> bool:
+        '''Aponta se o CPF é válido'''
         return CPF_VALIDATOR.validate(self._cpf)
     
     @property
@@ -76,6 +87,7 @@ class AuthController(LoginForm):
             return False
         
     def authenticate(self, request) -> bool:
+        '''Realiza autenticação do usuário, retornando True em caso de sucesso e False caso contrário'''
         user = auth.authenticate(request, username=self._username, password=self._password)
 
         if user is not None:
@@ -86,10 +98,12 @@ class AuthController(LoginForm):
     
     @staticmethod
     def logout(request) -> None:
+        '''Realiza logout do usuário'''
         auth.logout(request)
         
     @staticmethod
     def is_authenticated(request) -> bool:
+        '''Verifica se usuário já se encotra autenticado'''
         
         if request.user.is_authenticated:
             return True 

@@ -20,8 +20,8 @@
 </head>
 
 <body class="bg-dark">
+    <input type="hidden" id="invalidForm" value="{{ invalidForm }}">
 
-    
     <div class="container-fluid vh-100">
         <div class="row">
             <div class="col-md-2 col-0 m-0 border border-white p-0">
@@ -86,10 +86,8 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
 
-                    <form method="post" novalidate>
+                    <form method="post" novalidate enctype="multipart/form-data">
                         {% csrf_token %}
-
-                        <input type="hidden" id="invalidForm" value="{{ invalidForm }}">
 
                         <div class="modal-body d-flex flex-column">
                             <div class="row w-100 justify-content-center gy-2">
@@ -126,7 +124,16 @@
 
                                     {% endif %}
                                     
-                                {% endfor %}                                
+                                {% endfor %}
+                                
+                                <div class="col-10 d-flex justify-content-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" name="envio-anonimo" type="checkbox" value="true" id="flexCheckChecked">
+                                        <label class="form-check-label" for="flexCheckChecked">
+                                            Informar anônimamente
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
 
                         </div>

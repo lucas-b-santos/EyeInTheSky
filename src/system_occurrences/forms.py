@@ -3,10 +3,8 @@ from .models import Ocorrencia
 from django.utils.translation import gettext_lazy as _
 from django.core.exceptions import ValidationError
 from datetime import datetime
-import json
 from core.settings import TIME_ZONE
 from pytz import timezone
-
 class EnvioForm(forms.ModelForm):
     class Meta:
         model = Ocorrencia
@@ -35,7 +33,9 @@ class EnvioForm(forms.ModelForm):
         data_hora = self.cleaned_data.get("data_hora")
 
         if data_hora < datetime.now(timezone(TIME_ZONE)):
+            
             return data_hora
+        
         else:
             raise ValidationError(_("Informe uma data e hora válida!"))
         

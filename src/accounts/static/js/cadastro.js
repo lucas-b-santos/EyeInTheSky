@@ -1,4 +1,5 @@
 $(function () {
+    $(".errorlist").addClass("text-danger");
 
     window.setTimeout(function () {
         $(".alert").fadeTo(700, 0).slideUp(700, function () {
