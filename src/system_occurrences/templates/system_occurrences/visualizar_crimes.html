@@ -70,7 +70,7 @@
     </div>
 
     {% for ocorrencia in ocorrencias %}
-    {{ ocorrencia|json_script:"ocorrencia" }}
+        {{ ocorrencia|json_script:"ocorrencia" }}
     {% endfor %}
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
@@ -86,29 +86,40 @@
                 '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         }).addTo(map);
 
-        const ocorrencias = document.querySelectorAll("#ocorrencia")
+        const ocorrencias = document.querySelectorAll("#ocorrencia");
+        var latlngs = [];
 
         for (i in ocorrencias) {
 
-            ocorrencia = JSON.parse(ocorrencias[i].textContent);
+            if (typeof ocorrencias[i].textContent == 'string') {
+                ocorrencia = JSON.parse(ocorrencias[i].textContent);
 
-            data = ocorrencia['data_hora'].split('T')[0].split('-')
-            hora = ocorrencia['data_hora'].split('T')[1].split("-")[0]
+                data = ocorrencia['data_hora'].split('T')[0].split('-')
+                hora = ocorrencia['data_hora'].split('T')[1].split("-")[0]
 
-            aux = data[2];
-            data[2] = data[0];
-            data[0] = aux;
+                aux = data[2];
+                data[2] = data[0];
+                data[0] = aux;
 
-            data = data.join('/');
-            
-            L.marker(ocorrencia['localizacao'])
-                .addTo(map)
-                .bindPopup(`<div class="d-flex flex-column align-items-center gap-1">  
-                                <div>${ocorrencia['tipo']}</div> 
-                                <div>${data}</div>  
-                                <div>${hora}</div>  
-                            </div>`);
+                data = data.join('/');
+
+                latlngs.push(ocorrencia['localizacao']);
+
+
+                L.marker(ocorrencia['localizacao'])
+                    .addTo(map)
+                    .bindPopup(`<div class="d-flex flex-column align-items-center gap-1">  
+                    <div>${ocorrencia['tipo']}</div> 
+                    <div>${data}</div>  
+                    <div>${hora}</div>  
+                </div>`);
+            }
+
         }
+
+        var polygon = L.polygon(latlngs);
+
+        map.fitBounds(polygon.getBounds());
 
     </script>
 

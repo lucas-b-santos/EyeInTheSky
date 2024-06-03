@@ -2,6 +2,7 @@ from django.db import models
 from accounts.models import User
 
 class Ocorrencia(models.Model):
+    '''Entidade que representa uma ocorrência de crime'''
 
     user = models.ForeignKey(null=True, to=User, on_delete=models.CASCADE)
 

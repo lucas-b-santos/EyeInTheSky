@@ -26,7 +26,7 @@ $(function () {
   async function createMap() {
     let latlng = await getLocation;
 
-    const map = L.map("map").setView(latlng, 18);
+    const map = L.map("map").setView(latlng, 12);
 
     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 19,
@@ -36,15 +36,21 @@ $(function () {
 
     var marker = null;
 
+    if ($("#invalidForm").attr("value")) {
+      marker = L.marker(JSON.parse($("#id_localizacao").html()));
+      marker.addTo(map).on("click", () => {
+        modalForm.show();
+      });
+    }
+
     function onMapClick(e) {
       if (marker) {
-        marker.setLatLng(e.latlng)
+        
+        marker.setLatLng(e.latlng);
+
       } else {
 
-        if ($("#invalidForm").attr("value"))
-          marker = L.marker(JSON.parse($("#id_localizacao").html()));
-        else
-          marker = L.marker(e.latlng);
+        marker = L.marker(e.latlng);
 
         marker.addTo(map).on("click", () => {
           modalForm.show();

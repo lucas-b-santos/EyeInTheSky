@@ -5,8 +5,6 @@ from django.contrib.auth.decorators import login_required
 from .models import Ocorrencia
 from pytz import timezone
 from core.settings import TIME_ZONE
-import json
-
 
 @login_required
 def enviar_ocorrencia(request):
