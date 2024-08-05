@@ -95,7 +95,6 @@ def signIn(request):
             messages.error(request, "Senha incorreta.")
             return redirect("login")
 
-    
     controller = AuthController()    
     
     # controlador verifica se usuário já está logado, caso sim redireciona para tela inicial

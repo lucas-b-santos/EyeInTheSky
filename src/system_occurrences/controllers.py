@@ -15,6 +15,7 @@ class EnvioCrimeController(EnvioForm):
         '''Salva ocorrência, associando usuário caso não foi optado por envio anônimo'''
         
         if self._envioAnonimo:
+            
             self.save()
             
         else:
